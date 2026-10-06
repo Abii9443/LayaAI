@@ -1,0 +1,52 @@
+# Laya Chatbot Evaluation Framework - Default Configuration
+
+# Model Configuration
+model:
+  name: 'auto'  # Options: 'laya', 'laya-multilingual', 'laya-typed-decisions', 'auto'
+
+# Metrics Configuration
+metrics:
+  # Metrics to evaluate (use 'all' for all available metrics)
+  enabled:
+    - response_match
+    - answer_relevancy
+    - faithfulness
+    - hallucination
+    - contextual_recall
+    - toxicity
+
+  # Thresholds for binary classification metrics
+  thresholds:
+    response_match: 0.70  # Probability threshold for PASS/FAIL
+
+  # Weights for overall accuracy calculation
+  weights:
+    response_match: 0.25      # Binary match evaluation
+    answer_relevancy: 0.20    # Query relevance
+    faithfulness: 0.20        # Context grounding
+    hallucination: 0.15       # Fabrication detection (inverted)
+    contextual_recall: 0.15   # Completeness
+    toxicity: 0.05            # Safety check (inverted)
+
+# Batch Processing
+batch:
+  size: 32  # Number of samples per batch
+  show_progress: true  # Show progress bar
+
+# Data Loading
+data:
+  strict_mode: false  # If true, raise errors on validation failures
+  clean: true  # Remove rows with missing required data
+
+# Output Configuration
+output:
+  formats:
+    - csv
+    - json
+  include_confidence: true
+  include_metadata: true
+
+# Logging
+logging:
+  level: 'INFO'  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
